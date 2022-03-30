@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <table  *ngIf="authors && authors.length > 0; else noAuthorsInfo" class="cs-table table table-striped">
+                <thead>
+                    <tr>
+                        <th>Author Name</th>
+                        <th>No of Books</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let author of authors; let i = index" class="row-author" >
+                        <td> {{ author.name }} </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noAuthorsInfo>
+				<div class="no-cars-info">
+					<p>Currently no authors in service</p>
+				</div>
+			</ng-template>
+        </div>
+    </div>
+</div>
