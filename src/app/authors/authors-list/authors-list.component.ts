@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Author } from 'src/app/models/author';
 import { AuthorsService } from '../authors.service';
 
@@ -11,7 +12,8 @@ export class AuthorsListComponent implements OnInit {
 
   authors : Author[] = [];
 
-  constructor(private authorsService : AuthorsService) { }
+  constructor(private authorsService : AuthorsService,
+              private router : Router) { }
 
   ngOnInit(): void {
     this.loadAuthors();
@@ -21,6 +23,10 @@ export class AuthorsListComponent implements OnInit {
     this.authorsService.getAuthors().subscribe((authors : Author[]) => {
       this.authors = authors;
     });
+  }
+
+  goToAuthorDetails(author : Author) {
+    this.router.navigate(['/authors', author.id]);
   }
 
 }

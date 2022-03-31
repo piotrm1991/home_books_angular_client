@@ -23,4 +23,8 @@ export class AuthorsService {
   getAuthors() : Observable<Author[]> {
     return this.http.get(this.apiUrl, this.httpOptions).pipe(map((res : any) => res));
   }
+
+  getAuthor(id : number) : Observable<Author> {
+    return this.http.get(this.apiUrl + `/${id}`, this.httpOptions).pipe(map((res : any) => res));
+  } 
 }
