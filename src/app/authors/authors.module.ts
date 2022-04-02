@@ -5,6 +5,7 @@ import { SharedModule } from '../shared-module/shared.module';
 import { RouterModule } from '@angular/router';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
 import { AuthorResolve } from './author-resolve.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +17,8 @@ import { AuthorResolve } from './author-resolve.service';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     AuthorsListComponent
