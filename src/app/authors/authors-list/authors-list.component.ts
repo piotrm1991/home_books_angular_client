@@ -29,4 +29,7 @@ export class AuthorsListComponent implements OnInit {
     this.router.navigate(['/authors', author.id]);
   }
 
+  goToNewAuthor() {
+    this.router.navigate(['/newAuthor']);
+  }
 }

@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
 import { AuthorResolve } from './author-resolve.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthorAddComponent } from './author-add/author-add.component';
 
 
 
 @NgModule({
   declarations: [
     AuthorsListComponent,
-    AuthorDetailsComponent
+    AuthorDetailsComponent,
+    AuthorAddComponent
   ],
   imports: [
     CommonModule,

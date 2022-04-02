@@ -8,6 +8,11 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
+            <button class="btn btn-primary" (click)="goToNewAuthor()">Add New Author</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
             <table  *ngIf="authors && authors.length > 0; else noAuthorsInfo" class="cs-table table table-striped">
                 <thead>
                     <tr>

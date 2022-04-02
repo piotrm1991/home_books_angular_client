@@ -31,12 +31,19 @@ export class AuthorDetailsComponent implements OnInit {
 
   buildAuthorForm() {
     return this.formBuilder.group({
-      name: this.author.name
+      name: [this.author.name, [Validators.required, Validators.minLength(3)]]
     });
   }
 
   updateAuthor() {
-    console.log("...");
-    this.router.navigate(['/authors']);
+    this.authorService.updateAuthor(this.author.id, this.authorForm.value).subscribe(() => {
+      this.router.navigate(['/authors']);  
+    });
+  }
+
+  deleteAuthor() {
+    this.authorService.deleteAuthor(this.author.id).subscribe(() => {
+      this.router.navigate(['/authors']);
+    })
   }
 }

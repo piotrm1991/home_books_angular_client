@@ -27,4 +27,16 @@ export class AuthorsService {
   getAuthor(id : number) : Observable<Author> {
     return this.http.get(this.apiUrl + `/${id}`, this.httpOptions).pipe(map((res : any) => res));
   } 
+
+  addAuthor(data : any) : Observable<Author> {
+    return this.http.post(this.apiUrl, data, this.httpOptions).pipe(map((res : any) => res));
+  }
+
+  updateAuthor(id: number, data : any) : Observable<Author> {
+    return this.http.patch(this.apiUrl + `/${id}`, data, this.httpOptions).pipe(map((res : any) => res));
+  }
+
+  deleteAuthor(id : number) : Observable<Author> {
+    return this.http.delete(this.apiUrl + `/${id}`, this.httpOptions).pipe(map((res : any) => res));
+  }
 }
