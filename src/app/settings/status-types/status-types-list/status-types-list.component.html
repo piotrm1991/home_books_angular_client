@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary" (click)="goToNewStatusType()">Add New Status Type</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table  *ngIf="statusTypes && statusTypes.length > 0; else noStatusTypesInfo" class="cs-table table table-striped">
+                <thead>
+                    <tr>
+                        <th>Status Type</th>
+                        <th>No. of Books</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let statusType of statusTypes; let i = index" class="row-status-type" (click)="goToStatusTypeDetails(statusType)" >
+                        <td> {{ statusType.name }} </td>
+                        <td> 0 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noStatusTypesInfo>
+				<div class="no-status-types-info">
+					<p>Currently no Status Types in service</p>
+				</div>
+			</ng-template>
+        </div>
+    </div>
+</div>

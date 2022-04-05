@@ -13,6 +13,7 @@ import { PublishersRoutingModule } from './publishers/publishers-routing.module'
 import { PublishersService } from './publishers/publishers.service';
 import { SettingsModule } from './settings/settings.module';
 import { RoomsRoutingModule } from './settings/rooms/rooms-routing.module';
+import { StatusTypesRoutingModule } from './settings/status-types/status-types-routing.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RoomsRoutingModule } from './settings/rooms/rooms-routing.module';
     PublishersModule,
     PublishersRoutingModule,
     SettingsModule, 
-    RoomsRoutingModule
+    RoomsRoutingModule,
+    StatusTypesRoutingModule
   ],
   providers: [
     AuthorsService,

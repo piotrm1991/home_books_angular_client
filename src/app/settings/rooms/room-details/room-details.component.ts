@@ -46,5 +46,4 @@ export class RoomDetailsComponent implements OnInit {
       this.router.navigate(['/settings']);
     })
   }
-
 }

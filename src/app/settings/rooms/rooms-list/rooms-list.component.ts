@@ -10,7 +10,6 @@ import { RoomsService } from '../rooms.service';
 })
 export class RoomsListComponent implements OnInit {
 
-
   rooms : Room[] = [];
 
   constructor(private roomService : RoomsService,

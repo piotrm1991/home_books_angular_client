@@ -1,0 +1,29 @@
+<hb-header>s
+	<p levels>settings / status types / {{ statusType.name }}</p>
+
+	<div content>
+		<p>Status Type Details</p>
+	</div>
+</hb-header>
+
+<p class="data-header">Edit {{ statusType.name }}</p>
+<div class="data-container">
+	<form [formGroup]="statusTypeForm">
+		<div class="row form-group">
+			<div class="col-sm-6">
+				<label>Name</label>
+				<input formControlName="name" type="text" class="form-control" placeholder="Name">
+				<p *ngIf="!statusTypeForm.get('name')?.valid && statusTypeForm.get('name')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<button [disabled]="statusTypeForm.invalid" (click)="updateStatusType()" type="submit" class="btn btn-primary float-right">Update Status Type</button>
+					<button (click)="statusTypeForm.reset()" class="btn btn-default float-right">Reset</button>
+				</div>
+				<div class="col-sm-2">
+					<button [disabled]="statusTypeForm.invalid" (click)="deleteStatusType()" class="btn btn-danger float-left">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
