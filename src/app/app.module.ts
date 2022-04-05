@@ -8,6 +8,9 @@ import { AuthorsService } from './authors/authors.service';
 import { AuthorsModule } from './authors/authors.module';
 import { CoreModule } from './core-module/core.module';
 import { AuthorsRoutingModule } from './authors/authors-routing.module';
+import { PublishersModule } from './publishers/publishers.module';
+import { PublishersRoutingModule } from './publishers/publishers-routing.module';
+import { PublishersService } from './publishers/publishers.service';
 
 @NgModule({
   declarations: [
@@ -19,9 +22,14 @@ import { AuthorsRoutingModule } from './authors/authors-routing.module';
     HttpClientModule,
     AuthorsModule,
     CoreModule,
-    AuthorsRoutingModule
+    AuthorsRoutingModule,
+    PublishersModule,
+    PublishersRoutingModule
   ],
-  providers: [AuthorsService],
+  providers: [
+    AuthorsService,
+    PublishersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

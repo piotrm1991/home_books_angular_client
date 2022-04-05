@@ -1,0 +1,37 @@
+<hb-header>
+	<p levels>publishers</p>
+
+	<div content>
+		<p>List of Publishers</p>
+	</div>
+</hb-header>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary" (click)="goToNewPublisher()">Add New Publisher</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table  *ngIf="publishers && publishers.length > 0; else noPublishersInfo" class="cs-table table table-striped">
+                <thead>
+                    <tr>
+                        <th>Publisher Name</th>
+                        <th>No. of Books</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let publisher of publishers; let i = index" class="row-publisher" (click)="goToPublisherDetails(publisher)" >
+                        <td> {{ publisher.name }} </td>
+                        <td> 0 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noPublishersInfo>
+				<div class="no-publisher-info">
+					<p>Currently no publishers in service</p>
+				</div>
+			</ng-template>
+        </div>
+    </div>
+</div>

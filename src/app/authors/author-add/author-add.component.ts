@@ -16,9 +16,9 @@ export class AuthorAddComponent implements OnInit {
   authorForm! : FormGroup;
 
   constructor(private authorService : AuthorsService,
-    private route : ActivatedRoute,
-    private router : Router,
-    private formBuilder : FormBuilder) { }
+              private route : ActivatedRoute,
+              private router : Router,
+              private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
     this.authorForm = this.buildAuthorForm();
