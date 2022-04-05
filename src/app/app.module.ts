@@ -11,6 +11,8 @@ import { AuthorsRoutingModule } from './authors/authors-routing.module';
 import { PublishersModule } from './publishers/publishers.module';
 import { PublishersRoutingModule } from './publishers/publishers-routing.module';
 import { PublishersService } from './publishers/publishers.service';
+import { SettingsModule } from './settings/settings.module';
+import { RoomsRoutingModule } from './settings/rooms/rooms-routing.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PublishersService } from './publishers/publishers.service';
     CoreModule,
     AuthorsRoutingModule,
     PublishersModule,
-    PublishersRoutingModule
+    PublishersRoutingModule,
+    SettingsModule, 
+    RoomsRoutingModule
   ],
   providers: [
     AuthorsService,

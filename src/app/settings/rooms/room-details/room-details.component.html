@@ -1,0 +1,29 @@
+<hb-header>s
+	<p levels>settings / rooms / {{ room.name }}</p>
+
+	<div content>
+		<p>Room Details</p>
+	</div>
+</hb-header>
+
+<p class="data-header">Edit {{ room.name }}</p>
+<div class="data-container">
+	<form [formGroup]="roomForm">
+		<div class="row form-group">
+			<div class="col-sm-6">
+				<label>Name</label>
+				<input formControlName="name" type="text" class="form-control" placeholder="Name">
+				<p *ngIf="!roomForm.get('name')?.valid && roomForm.get('name')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<button [disabled]="roomForm.invalid" (click)="updateRoom()" type="submit" class="btn btn-primary float-right">Update Author</button>
+					<button (click)="roomForm.reset()" class="btn btn-default float-right">Reset</button>
+				</div>
+				<div class="col-sm-2">
+					<button [disabled]="roomForm.invalid" (click)="deleteRoom()" class="btn btn-danger float-left">Delete</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

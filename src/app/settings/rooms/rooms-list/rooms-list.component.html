@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary" (click)="goToNewRoom()">Add New Room</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table  *ngIf="rooms && rooms.length > 0; else noRoomsInfo" class="cs-table table table-striped">
+                <thead>
+                    <tr>
+                        <th>Room Name</th>
+                        <th>No. of Books</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let room of rooms; let i = index" class="row-room" (click)="goToRoomDetails(room)" >
+                        <td> {{ room.name }} </td>
+                        <td> 0 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noRoomsInfo>
+				<div class="no-rooms-info">
+					<p>Currently no rooms in service</p>
+				</div>
+			</ng-template>
+        </div>
+    </div>
+</div>
