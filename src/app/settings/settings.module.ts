@@ -5,6 +5,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { SharedModule } from '../shared-module/shared.module';
 import { RouterModule } from '@angular/router';
 import { StatusTypesModule } from './status-types/status-types.module';
+import { ShelvesModule } from './shelves/shelves.module';
 
 
 
@@ -17,7 +18,8 @@ import { StatusTypesModule } from './status-types/status-types.module';
     RoomsModule,
     SharedModule,
     RouterModule,
-    StatusTypesModule
+    StatusTypesModule,
+    ShelvesModule
   ]
 })
 export class SettingsModule { }

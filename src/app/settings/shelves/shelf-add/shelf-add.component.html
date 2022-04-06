@@ -1,0 +1,45 @@
+<hb-header>s
+	<p levels>settings / shelves / new shelves</p>
+
+	<div content>
+		<p>Shelf Details</p>
+	</div>
+</hb-header>
+
+<p class="data-header">Add New Shelves</p>
+<div class="data-container">
+	<form [formGroup]="shelfForm">
+		<div class="row form-group">
+			<div class="col-sm-4">
+				<label>Room</label>
+                <select formControName="room">
+                    <option>Choose Room</option>
+                    <option *ngFor="let room of rooms" [ngValue]="room">
+                        {{ room.name }}
+                    </option>
+                </select>
+                <p *ngIf="!shelfForm.get('room')?.valid && shelfForm.get('room')?.dirty"  class="error">You have to choose room!</p>
+			</div>
+            <div class="col-sm-4">
+				<label>Letter</label>
+				<input formControlName="letter" type="text" class="form-control" placeholder="Letter">
+				<p *ngIf="!shelfForm.get('letter')?.valid && shelfForm.get('letter')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
+			</div>
+            <div class="col-sm-4">
+				<label>Number</label>
+				<input formControlName="number" type="text" class="form-control" placeholder="Number">
+				<p *ngIf="!shelfForm.get('number')?.valid && shelfForm.get('number')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<button [disabled]="shelfForm.invalid" (click)="addShelf()" type="submit" class="btn btn-primary float-right">Add Shelf</button>
+					<button (click)="shelfForm.reset()" class="btn btn-default float-right">Reset</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div>
+    <pre>Stan walidacji {{ shelfForm.get('room')?.valid | json }} </pre>
+    <pre> {{ shelfForm.value | json }} </pre>
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary" (click)="goToNewShelves()">Add New Shelves</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table  *ngIf="shelves && shelves.length > 0; else noShelvesInfo" class="cs-table table table-striped">
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Letter</th>
+                        <th>Number</th>
+                        <th>No. of Books</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let shelf of shelves; let i = index" class="row-shelf" (click)="goToShelfDetails(shelf)" >
+                        <td> {{ shelf.room.name }} </td>
+                        <td> {{ shelf.letter }} </td>
+                        <td> {{ shelf.number }} </td>
+                        <td> 0 </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noShelvesInfo>
+				<div class="no-shelves-info">
+					<p>Currently no Status Types in service</p>
+				</div>
+			</ng-template>
+        </div>
+    </div>
+</div>
