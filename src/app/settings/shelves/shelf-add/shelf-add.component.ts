@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Room } from 'src/app/models/rooms';
@@ -24,7 +24,9 @@ export class ShelfAddComponent implements OnInit {
               private route : ActivatedRoute,
               private router : Router,
               private formBuilder : FormBuilder,
-              private roomService : RoomsService) { }
+              private roomService : RoomsService) {
+
+              }
 
   ngOnInit(): void {
     this.shelfForm = this.buildShelfForm();
@@ -32,13 +34,14 @@ export class ShelfAddComponent implements OnInit {
   }
 
   getRoomsForSelect() {
-    this.roomService.getRooms().subscribe(rooms => {
-      this.rooms = rooms;
+    this.roomService.getRooms().subscribe(res => {
+      this.rooms = res;
     });
   }
 
   buildShelfForm() {
     return this.formBuilder.group({
+      room: [null, [Validators.required]],
       letter: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]],
       number: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('^[0-9]*$')]],
     });

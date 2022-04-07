@@ -12,27 +12,34 @@
 		<div class="row form-group">
 			<div class="col-sm-4">
 				<label>Room</label>
-				<input formControlName="idRoom" type="text" class="form-control" placeholder="IdRoom">
-				<p *ngIf="!shelfForm.get('idRoom')?.valid && shelfForm.get('idRoom')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
+                <select formControlName="room" class="form-control">
+                    <option [ngValue]="selectedRoom"> {{ selectedRoom.name }}</option>
+                    <option *ngFor="let room of rooms" [ngValue]="room">
+                        {{ room.name }}
+                    </option>
+                </select>
+                <p *ngIf="!shelfForm.get('room')?.valid && shelfForm.get('room')?.dirty"  class="error">You have to choose room!</p>
 			</div>
-            <div class="col-sm-4">
+		</div>
+		<div class="row form-group">
+            <div class="col-sm-2">
 				<label>Letter</label>
-				<input formControlName="letter" type="text" class="form-control" placeholder="Letter">
+				<input formControlName="letter" type="text" class="form-control float-left" placeholder="Letter">
 				<p *ngIf="!shelfForm.get('letter')?.valid && shelfForm.get('letter')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
 			</div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
 				<label>Number</label>
-				<input formControlName="number" type="text" class="form-control" placeholder="Number">
+				<input formControlName="number" type="text" class="form-control float-right" placeholder="Number">
 				<p *ngIf="!shelfForm.get('number')?.valid && shelfForm.get('number')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
 			</div>
-			<div class="row">
-				<div class="col-sm-4">
-					<button [disabled]="shelfForm.invalid" (click)="updateShelf()" type="submit" class="btn btn-primary float-right">Update Shelf</button>
-					<button (click)="shelfForm.reset()" class="btn btn-default float-right">Reset</button>
-				</div>
-				<div class="col-sm-2">
-					<button [disabled]="shelfForm.invalid" (click)="deleteShelf()" class="btn btn-danger float-left">Delete</button>
-				</div>
+		</div>
+		<div class="row form-group">
+			<div class="col-sm-2">
+				<button [disabled]="shelfForm.invalid" (click)="updateShelf()" type="submit" class="btn btn-primary float-right">Update Shelf</button>
+				<button (click)="shelfForm.reset()" class="btn btn-default float-right">Reset</button>
+			</div>
+			<div class="col-sm-2">
+				<button [disabled]="shelfForm.invalid" (click)="deleteShelf()" class="btn btn-danger float-left">Delete</button>
 			</div>
 		</div>
 	</form>
