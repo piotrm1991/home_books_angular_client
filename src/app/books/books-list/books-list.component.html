@@ -1,0 +1,43 @@
+<hb-header>
+	<p levels>books</p>
+
+	<div content>
+		<p>List of Books</p>
+	</div>
+</hb-header>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary" (click)="goToNewBook()">Add New Book</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table  *ngIf="books && books.length > 0; else noBooksInfo" class="cs-table table table-striped">
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Author Name</th>
+                        <th>Publisher Name</th>
+                        <th>Room</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of books; let i = index" class="row-book" (click)="goToBookDetails(book)" >
+                        <td> {{ book.name }} </td>
+                        <td> {{ book.author.name }} </td>
+                        <td> {{ book.publisher.name }} </td>
+                        <td> {{ book.shelf.room.name }} </td>
+                        <td> {{ book.status.statusType.name }} </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #noBooksInfo>
+				<div class="no-books-info">
+					<p>Currently no books in service</p>
+				</div>
+			</ng-template>
+        </div>
+    </div>
+</div>

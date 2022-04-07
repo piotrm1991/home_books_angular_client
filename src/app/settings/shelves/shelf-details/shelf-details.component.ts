@@ -35,7 +35,6 @@ export class ShelfDetailsComponent implements OnInit {
 
   loadShelf() {
     this.shelf = this.route.snapshot.data['shelf'];
-    
     this.selectedRoom = this.shelf.room;
   }
 

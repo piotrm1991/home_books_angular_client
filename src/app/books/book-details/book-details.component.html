@@ -1,0 +1,79 @@
+<hb-header>
+	<p levels>books / {{ book.name }}</p>
+
+	<div content>
+		<p>Book Details</p>
+	</div>
+</hb-header>
+
+<p class="data-header">Edit {{ book.name }}</p>
+<div class="data-container">
+	<form [formGroup]="bookForm">
+		<div class="row form-group">
+            <div class="col-sm-2">
+				<label>Title</label>
+				<input formControlName="name" type="text" class="form-control" placeholder="Title">
+				<p *ngIf="!bookForm.get('name')?.valid && bookForm.get('name')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
+			</div>
+			<div class="col-sm-2">
+				<label>Author</label>
+                <select formControlName="author" class="form-control">
+                    <option [ngValue]="selectedAuthor">{{ selectedAuthor.name }}</option>
+                    <option *ngFor="let author of authors" [ngValue]="author">
+                        {{ author.name }}
+                    </option>
+                </select>
+                <p *ngIf="!bookForm.get('author')?.valid && bookForm.get('author')?.dirty"  class="error">You have to choose author!</p>
+			</div>
+            <div class="col-sm-2">
+				<label>Publisher</label>
+                <select formControlName="publisher" class="form-control">
+                    <option [ngValue]="selectedPublisher">{{ selectedPublisher.name }}</option>
+                    <option *ngFor="let publisher of publishers" [ngValue]="publisher">
+                        {{ publisher.name }}
+                    </option>
+                </select>
+                <p *ngIf="!bookForm.get('publisher')?.valid && bookForm.get('publisher')?.dirty"  class="error">You have to choose publisher!</p>
+			</div>
+            <div class="col-sm-2">
+                <label>Shelf</label>
+                <select formControlName="shelf" class="form-control">
+                    <option [ngValue]="selectedShelf">{{ selectedShelf.room.name }}  {{ selectedShelf.letter }} - {{ selectedShelf.number }}</option>
+                    <option *ngFor="let shelf of shelves" [ngValue]="shelf">
+                        {{ shelf.room.name }}  {{ shelf.letter }} - {{ shelf.number }}
+                    </option>
+                </select>
+                <p *ngIf="!bookForm.get('shelf')?.valid && bookForm.get('shelf')?.dirty"  class="error">You have to choose shelf!</p>
+            </div>
+		</div>
+		<div class="row form-group" formGroupName="status">
+            <div class="col-sm-3">
+				<label>Status</label>
+                <select formControlName="statusType" class="form-control">
+                    <option [ngValue]="selectedStatusType">{{ selectedStatusType.name }}</option>
+                    <option *ngFor="let statusType of statusTypes" [ngValue]="statusType">
+                        {{ statusType.name }}
+                    </option>
+                </select>
+                <p *ngIf="!bookForm.get('statusType')?.valid && bookForm.get('statusType')?.dirty"  class="error">You have to choose status!</p>
+			</div>
+            <div class="col-sm-5">
+				<label>Comment</label>
+				<input formControlName="comment" type="text" class="form-control" placeholder="Comment">
+				<p *ngIf="!bookForm.get('commen')?.valid && bookForm.get('commen')?.dirty"  class="error">This field is can not have more than 250 characters!</p>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col-sm-2">
+				<button [disabled]="bookForm.invalid" (click)="updateBook()" type="submit" class="btn btn-primary float-right">Save Book</button>
+				<button (click)="bookForm.reset()" class="btn btn-default float-right">Reset</button>
+			</div>
+			<div class="col-sm-2">
+				<button [disabled]="bookForm.invalid" (click)="deleteBook()" class="btn btn-danger float-left">Delete</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div>
+    <pre> {{ bookForm.value | json }} </pre>
+</div>

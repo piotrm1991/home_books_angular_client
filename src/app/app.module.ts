@@ -15,6 +15,8 @@ import { SettingsModule } from './settings/settings.module';
 import { RoomsRoutingModule } from './settings/rooms/rooms-routing.module';
 import { StatusTypesRoutingModule } from './settings/status-types/status-types-routing.module';
 import { ShelvesRoutingModule } from './settings/shelves/shelves-routing.module';
+import { BookRoutingModule } from './books/book-routing.module';
+import { BooksModule } from './books/books.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ShelvesRoutingModule } from './settings/shelves/shelves-routing.module'
     SettingsModule, 
     RoomsRoutingModule,
     StatusTypesRoutingModule,
-    ShelvesRoutingModule
+    ShelvesRoutingModule,
+    BookRoutingModule,
+    BooksModule
   ],
   providers: [
     AuthorsService,
