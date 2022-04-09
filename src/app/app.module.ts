@@ -17,6 +17,10 @@ import { StatusTypesRoutingModule } from './settings/status-types/status-types-r
 import { ShelvesRoutingModule } from './settings/shelves/shelves-routing.module';
 import { BookRoutingModule } from './books/book-routing.module';
 import { BooksModule } from './books/books.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TestModule } from './test/test.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -36,12 +40,18 @@ import { BooksModule } from './books/books.module';
     StatusTypesRoutingModule,
     ShelvesRoutingModule,
     BookRoutingModule,
-    BooksModule
+    BooksModule,
+    BrowserAnimationsModule,
+    TestModule,
+    MatSortModule,
+    MatTableModule
   ],
   providers: [
     AuthorsService,
     PublishersService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

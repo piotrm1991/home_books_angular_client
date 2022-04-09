@@ -11,7 +11,7 @@ const AUTHORS_ROUTES: Routes = [
     resolve: { author: AuthorResolve }
   },
   {
-    path: 'newAuthor',
+    path: 'addAuthor',
     component: <any>AuthorAddComponent
   }
 ];

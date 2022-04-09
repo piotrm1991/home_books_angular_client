@@ -5,22 +5,28 @@
 		<p>Author Details</p>
 	</div>
 </hb-header>
-
-<p class="data-header">Add New Author</p>
-<div class="data-container">
+<div class="container">
 	<form [formGroup]="authorForm">
-		<div class="row form-group">
-			<div class="col-sm-4">
-				<label>Name</label>
-				<input formControlName="name" type="text" class="form-control" placeholder="Name">
-				<p *ngIf="!authorForm.get('name')?.valid && authorForm.get('name')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">
-					<button [disabled]="authorForm.invalid" (click)="addAuthor()" type="submit" class="btn btn-primary float-right">Add Author</button>
-					<button (click)="authorForm.reset()" class="btn btn-default float-right">Reset</button>
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 data-container">
+				<div class="row">
+					<mat-form-field appearance="fill">
+						<mat-label>Name</mat-label>
+						<input matInput placeholder="Author Name" [formControl]="name" required>
+						<mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<button [disabled]="authorForm.invalid" (click)="addAuthor()" type="submit" mat-raised-button color="primary">Add Author</button>
+					</div>
+					<div class="col-sm-6">
+						<button (click)="authorForm.reset()" mat-raised-button>Reset</button>
+					</div>
 				</div>
 			</div>
+			<div class="col-sm-3"></div>
 		</div>
 	</form>
 </div>

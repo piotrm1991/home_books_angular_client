@@ -4,13 +4,15 @@ import { AuthorsListComponent } from './authors/authors-list/authors-list.compon
 import { BooksListComponent } from './books/books-list/books-list.component';
 import { PublishersListComponent } from './publishers/publishers-list/publishers-list.component';
 import { SettingsShowComponent } from './settings/settings-show/settings-show.component';
+import { TestComponentComponent } from './test/test-component/test-component.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'authors'},
   {path: 'authors', component: AuthorsListComponent},
   {path: 'publishers', component: PublishersListComponent},
   {path: 'settings', component: SettingsShowComponent},
-  {path: 'books', component: BooksListComponent}
+  {path: 'books', component: BooksListComponent},
+  {path: 'test', component: TestComponentComponent}
 ];
 
 @NgModule({

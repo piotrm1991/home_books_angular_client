@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author } from 'src/app/models/author';
 import { AuthorsService } from '../authors.service';
@@ -15,6 +15,8 @@ export class AuthorAddComponent implements OnInit {
   
   authorForm! : FormGroup;
 
+  name = new FormControl('', [Validators.required, Validators.minLength(3)]);
+
   constructor(private authorService : AuthorsService,
               private route : ActivatedRoute,
               private router : Router,
@@ -26,7 +28,7 @@ export class AuthorAddComponent implements OnInit {
 
   buildAuthorForm() {
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: this.name,
     });
   }
 
@@ -34,5 +36,13 @@ export class AuthorAddComponent implements OnInit {
     this.authorService.addAuthor(this.authorForm.value).subscribe(() => {
       this.router.navigate(['/authors']);  
     });
+  }
+
+  getErrorMessage() {
+    if (this.name.hasError('required')) {
+      return 'You must enter a name';
+    }
+
+    return this.name.hasError('name') ? 'Name needs more than 3 characters!' : '';
   }
 }

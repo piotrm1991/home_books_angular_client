@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthorsListComponent } from './authors-list/authors-list.component';
 import { SharedModule } from '../shared-module/shared.module';
@@ -7,6 +7,13 @@ import { AuthorDetailsComponent } from './author-details/author-details.componen
 import { AuthorResolve } from './author-resolve.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthorAddComponent } from './author-add/author-add.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 
@@ -14,19 +21,31 @@ import { AuthorAddComponent } from './author-add/author-add.component';
   declarations: [
     AuthorsListComponent,
     AuthorDetailsComponent,
-    AuthorAddComponent
+    AuthorAddComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatRippleModule
   ],
   exports: [
     AuthorsListComponent
   ],
   providers: [
     AuthorResolve
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
   ]
 })
 export class AuthorsModule { }
