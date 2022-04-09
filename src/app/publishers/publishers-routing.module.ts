@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PublisherDetailsComponent } from './publisher-details/publisher-details.component';
 import { PublisherResolve } from './publisher-resolve.service';
@@ -12,7 +11,7 @@ const PUBLISHERS_ROUTES: Routes = [
     resolve: { publisher : PublisherResolve }
   },
   {
-    path: 'newPublisher',
+    path: 'addPublisher',
     component: <any>PublisherAddComponent
   }
 ];

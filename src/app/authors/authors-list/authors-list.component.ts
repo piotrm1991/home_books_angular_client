@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Author } from 'src/app/models/author';
 import { AuthorsService } from '../authors.service';
 
-import { AfterViewInit, ViewChild } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './authors-list.component.html',
   styleUrls: ['./authors-list.component.less']
 })
-export class AuthorsListComponent implements OnInit, AfterViewInit {
+export class AuthorsListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'noBooks'];
   dataSource!: MatTableDataSource<Author>;
@@ -30,11 +30,6 @@ export class AuthorsListComponent implements OnInit, AfterViewInit {
     this.loadAuthors();
   }
 
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -47,6 +42,9 @@ export class AuthorsListComponent implements OnInit, AfterViewInit {
   loadAuthors() : void{
     this.authorsService.getAuthors().subscribe((authors) => {
       this.dataSource = new MatTableDataSource(authors);
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter);
+      };
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

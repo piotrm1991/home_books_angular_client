@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Publisher } from 'src/app/models/publisher';
 import { PublishersService } from '../publishers.service';
@@ -14,6 +14,8 @@ export class PublisherDetailsComponent implements OnInit {
   publisher! : Publisher;
 
   publisherForm! : FormGroup;
+
+  name = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
   constructor(private publisherService : PublishersService,
               private route : ActivatedRoute,
@@ -30,8 +32,9 @@ export class PublisherDetailsComponent implements OnInit {
   }
 
   buildPublisherForm() {
+    this.name.patchValue(this.publisher.name);
     return this.formBuilder.group({
-      name: [this.publisher.name, [Validators.required, Validators.minLength(3)]]
+      name: this.name
     });
   }
 
@@ -45,5 +48,17 @@ export class PublisherDetailsComponent implements OnInit {
     this.publisherService.deletePublisher(this.publisher.id).subscribe(() => {
       this.router.navigate(['/publishers']);
     })
+  }
+
+  resetToOriginal() {
+    this.name.patchValue(this.publisher.name);
+  }
+  
+  getErrorMessage() {
+    if (this.name.hasError('required')) {
+      return 'You must enter a name';
+    }
+
+    return this.name.hasError('name') ? 'Name needs more than 3 characters!' : '';
   }
 }
