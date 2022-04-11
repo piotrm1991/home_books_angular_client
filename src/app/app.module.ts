@@ -21,6 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestModule } from './test/test.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [

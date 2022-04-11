@@ -34,8 +34,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatButtonToggleModule,
     MatFormFieldModule,
     MatInputModule,
-    MatPaginatorModule,
-    MatRippleModule
+    MatPaginatorModule
   ],
   exports: [
     AuthorsListComponent

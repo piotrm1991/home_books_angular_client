@@ -7,7 +7,7 @@ import { SettingsShowComponent } from './settings/settings-show/settings-show.co
 import { TestComponentComponent } from './test/test-component/test-component.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'authors'},
+  {path: '', pathMatch: 'full', redirectTo: 'books'},
   {path: 'authors', component: AuthorsListComponent},
   {path: 'publishers', component: PublishersListComponent},
   {path: 'settings', component: SettingsShowComponent},

@@ -5,72 +5,109 @@
 		<p>Book Details</p>
 	</div>
 </hb-header>
-
-<p class="data-header">Add New Book</p>
-<div class="data-container">
+<div class="container">
 	<form [formGroup]="bookForm">
-		<div class="row form-group">
-            <div class="col-sm-2">
-				<label>Title</label>
-				<input formControlName="name" type="text" class="form-control" placeholder="Title">
-				<p *ngIf="!bookForm.get('name')?.valid && bookForm.get('name')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 data-container">
+				<div class="row">
+                    <div class="col-sm-12">
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Title</mat-label>
+                            <input matInput placeholder="Title" [formControl]="nameControl" required>
+                            <mat-error *ngIf="nameControl.invalid">{{getErrorMessageTitle()}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6" >
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Author</mat-label>
+                            <input type="text"
+                                   placeholder="Pick Author"
+                                   aria-label="Author Name"
+                                   matInput
+                                   [formControl]="authorControl"
+                                   [matAutocomplete]="autoAuthor" (input)="removeIdAuthor($event)">
+                            <mat-autocomplete #autoAuthor="matAutocomplete" (optionSelected)="onSelectAuthor($event)">
+                              <mat-option *ngFor="let option of filteredOptionsAuthors | async" [value]="option">
+                                {{option.name}}
+                              </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="authorControl.invalid">{{getErrorMessageAuthor()}}</mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-sm-6" >
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Publisher</mat-label>
+                            <input type="text"
+                                   placeholder="Pick Publisher"
+                                   aria-label="Publisher Name"
+                                   matInput
+                                   [formControl]="publisherControl"
+                                   [matAutocomplete]="autoPublisher" (input)="removeIdPublisher($event)">
+                            <mat-autocomplete #autoPublisher="matAutocomplete" (optionSelected)="onSelectPublisher($event)">
+                              <mat-option *ngFor="let option of filteredOptionsPublishers | async" [value]="option">
+                                {{option.name}}
+                              </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="publisherControl.invalid">{{getErrorMessagePublisher()}}</mat-error>
+                          </mat-form-field>
+                    </div>
+				</div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Room</mat-label>
+                            <mat-select (selectionChange)="changeShelfSelection($event)">
+                                <mat-option *ngFor="let room of rooms" [value]="room">
+                                    {{room.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Shelf</mat-label>
+                            <mat-select [formControl]="shelfControl">
+                                <mat-option *ngFor="let shelf of shelves" [value]="shelf">
+                                    {{shelf.letter}} - {{ shelf.number }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="commentControl.invalid">{{getErrorMessageShelf()}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-5">
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Status</mat-label>
+                            <mat-select [formControl]="statusControl">
+                                <mat-option *ngFor="let statusType of statusTypes" [value]="statusType">
+                                    {{statusType.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="commentControl.invalid">{{getErrorMessageStatus()}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Comment</mat-label>
+                            <input matInput placeholder="Comment" [formControl]="commentControl">
+                            <mat-error *ngIf="commentControl.invalid">{{getErrorMessageComment()}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+				<div class="row">
+					<div class="col-sm-6">
+						<button [disabled]="bookForm.invalid" (click)="addBook()" type="submit" mat-raised-button color="primary">Add Book</button>
+					</div>
+					<div class="col-sm-6">
+						<button (click)="bookForm.reset()" mat-raised-button>Reset</button>
+					</div>
+				</div>
 			</div>
-			<div class="col-sm-2">
-				<label>Author</label>
-                <select formControlName="author" class="form-control">
-                    <option [ngValue]=null>Choose Author</option>
-                    <option *ngFor="let author of authors" [ngValue]="author">
-                        {{ author.name }}
-                    </option>
-                </select>
-                <p *ngIf="!bookForm.get('author')?.valid && bookForm.get('author')?.dirty"  class="error">You have to choose author!</p>
-			</div>
-            <div class="col-sm-2">
-				<label>Publisher</label>
-                <select formControlName="publisher" class="form-control">
-                    <option [ngValue]=null>Choose Publisher</option>
-                    <option *ngFor="let publisher of publishers" [ngValue]="publisher">
-                        {{ publisher.name }}
-                    </option>
-                </select>
-                <p *ngIf="!bookForm.get('publisher')?.valid && bookForm.get('publisher')?.dirty"  class="error">You have to choose publisher!</p>
-			</div>
-            <div class="col-sm-2">
-                <label>Shelf</label>
-                <select formControlName="shelf" class="form-control">
-                    <option [ngValue]=null>Choose Shelf</option>
-                    <option *ngFor="let shelf of shelves" [ngValue]="shelf">
-                        {{ shelf.room.name }}  {{ shelf.letter }} - {{ shelf.number }}
-                    </option>
-                </select>
-                <p *ngIf="!bookForm.get('shelf')?.valid && bookForm.get('shelf')?.dirty"  class="error">You have to choose shelf!</p>
-            </div>
-		</div>
-		<div class="row form-group" formGroupName="status">
-            <div class="col-sm-3">
-				<label>Status</label>
-                <select formControlName="statusType" class="form-control">
-                    <option [ngValue]=null>Choose Status</option>
-                    <option *ngFor="let statusType of statusTypes" [ngValue]="statusType">
-                        {{ statusType.name }}
-                    </option>
-                </select>
-                <p *ngIf="!bookForm.get('statusType')?.valid && bookForm.get('statusType')?.dirty"  class="error">You have to choose status!</p>
-			</div>
-            <div class="col-sm-5">
-				<label>Comment</label>
-				<input formControlName="comment" type="text" class="form-control" placeholder="Comment">
-				<p *ngIf="!bookForm.get('commen')?.valid && bookForm.get('commen')?.dirty"  class="error">This field is can not have more than 250 characters!</p>
-			</div>
-		</div>
-		<div class="row form-group">
-			<div class="col-sm-2">
-				<button [disabled]="bookForm.invalid" (click)="addBook()" type="submit" class="btn btn-primary float-right">Add Book</button>
-				<button (click)="bookForm.reset()" class="btn btn-default float-right">Reset</button>
-			</div>
+			<div class="col-sm-3"></div>
 		</div>
 	</form>
-</div>
-<div>
-    <pre> {{ bookForm.value | json }} </pre>
 </div>

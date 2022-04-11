@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Shelf } from 'src/app/models/shelf';
@@ -38,5 +38,17 @@ export class ShelvesService {
 
   deleteShelf(id : number) : Observable<Shelf> {
     return this.http.delete(this.apiUrl + `/${id}`, this.httpOptions).pipe(map((res : any) => res));
+  }
+
+  getShelvesByRoomId(id : number) : Observable<Shelf[]> {
+    let options = {
+      headers: new HttpHeaders({
+        'Accept': 'application/vnd.homebooks.forangular.v2+hal+json',
+      }),
+      params: {
+        'idRoom': id
+      }
+    };
+    return this.http.get(this.apiUrl, options).pipe(map((res : any) => res));
   }
 }
