@@ -5,22 +5,28 @@
 		<p>Status Type Details</p>
 	</div>
 </hb-header>
-
-<p class="data-header">Add New Status Type</p>
-<div class="data-container">
+<div class="container">
 	<form [formGroup]="statusTypeForm">
-		<div class="row form-group">
-			<div class="col-sm-4">
-				<label>Name</label>
-				<input formControlName="name" type="text" class="form-control" placeholder="Name">
-				<p *ngIf="!statusTypeForm.get('name')?.valid && statusTypeForm.get('name')?.dirty"  class="error">This field is needs to have more than 3 characters!</p>
-			</div>
-			<div class="row">
-				<div class="col-sm-12">
-					<button [disabled]="statusTypeForm.invalid" (click)="addStatusType()" type="submit" class="btn btn-primary float-right">Add Status Type</button>
-					<button (click)="statusTypeForm.reset()" class="btn btn-default float-right">Reset</button>
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 data-container">
+				<div class="row">
+					<mat-form-field appearance="fill">
+						<mat-label>Name</mat-label>
+						<input matInput placeholder="Status Type Name" [formControl]="name" required>
+						<mat-error *ngIf="name.invalid">{{getErrorMessage()}}</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<button [disabled]="statusTypeForm.invalid" (click)="addStatusType()" type="submit" mat-raised-button color="primary">Add Status Type</button>
+					</div>
+					<div class="col-sm-6">
+						<button (click)="statusTypeForm.reset()" mat-raised-button>Reset</button>
+					</div>
 				</div>
 			</div>
+			<div class="col-sm-3"></div>
 		</div>
 	</form>
 </div>

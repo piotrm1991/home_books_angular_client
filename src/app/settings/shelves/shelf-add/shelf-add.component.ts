@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Room } from 'src/app/models/rooms';
 import { Shelf } from 'src/app/models/shelf';
 import { RoomsService } from '../../rooms/rooms.service';
@@ -19,6 +18,12 @@ export class ShelfAddComponent implements OnInit {
   shelfForm! : FormGroup;
 
   rooms! : Room[];
+
+  roomControl = new FormControl(null, Validators.required);
+
+  letterControl = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]);
+
+  numberControl = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('^[0-9]*$')]);
 
   constructor(private shelvesService : ShelvesService,
               private route : ActivatedRoute,
@@ -41,9 +46,9 @@ export class ShelfAddComponent implements OnInit {
 
   buildShelfForm() {
     return this.formBuilder.group({
-      room: [null, [Validators.required]],
-      letter: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]],
-      number: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('^[0-9]*$')]],
+      room: this.roomControl,
+      letter: this.letterControl,
+      number: this.numberControl,
     });
   }
 
@@ -51,5 +56,29 @@ export class ShelfAddComponent implements OnInit {
     this.shelvesService.addShelf(this.shelfForm.value).subscribe(() => {
       this.router.navigate(['/settings']);  
     });
+  }
+
+  getErrorMessageRoom() {
+    return (this.roomControl.hasError('required')) ? 'You must choose room' : '';
+  }
+
+  getErrorMessageLetter() {
+    if (this.letterControl.hasError('required')) {
+      return 'You must enter a title';
+    } else if (this.letterControl.hasError('minlength') || this.letterControl.hasError('maxlength')) {
+      return 'min 1 max 3 characters';
+    }
+
+    return (this.letterControl.hasError('pattern')) ?  'Characters only': '';
+  }
+
+  getErrorMessageNumber() {
+    if (this.numberControl.hasError('required')) {
+      return 'You must enter a title';
+    } else if (this.numberControl.hasError('minlength') || this.numberControl.hasError('maxlength')) {
+      return 'min 1 max 3 characters';
+    }
+
+    return (this.numberControl.hasError('pattern')) ?  'Numbers only': '';
   }
 }

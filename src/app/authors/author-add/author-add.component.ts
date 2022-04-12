@@ -15,7 +15,7 @@ export class AuthorAddComponent implements OnInit {
   
   authorForm! : FormGroup;
 
-  name = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]);
 
   constructor(private authorService : AuthorsService,
               private route : ActivatedRoute,
@@ -43,6 +43,6 @@ export class AuthorAddComponent implements OnInit {
       return 'You must enter a name';
     }
 
-    return this.name.hasError('name') ? 'Name needs more than 3 characters!' : '';
+    return (this.name.hasError('minlength') || this.name.hasError('maxlenght')) ? 'Name needs more than 3 characters and less than 100!' : '';
   }
 }

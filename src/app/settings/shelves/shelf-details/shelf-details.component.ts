@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Room } from 'src/app/models/rooms';
 import { Shelf } from 'src/app/models/shelf';
@@ -21,6 +21,12 @@ export class ShelfDetailsComponent implements OnInit {
 
   selectedRoom! : Room;
 
+  roomControl = new FormControl('', Validators.required);
+
+  letterControl = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]);
+
+  numberControl = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('^[0-9]*$')]);
+
   constructor(private shelvesService : ShelvesService,
               private route : ActivatedRoute,
               private router : Router,
@@ -31,11 +37,11 @@ export class ShelfDetailsComponent implements OnInit {
     this.loadShelf();
     this.getRoomsForSelect();
     this.shelfForm = this.buildShelfForm();
+    this.patchShelfValues();
   }
 
   loadShelf() {
     this.shelf = this.route.snapshot.data['shelf'];
-    this.selectedRoom = this.shelf.room;
   }
 
   getRoomsForSelect() {
@@ -43,12 +49,18 @@ export class ShelfDetailsComponent implements OnInit {
       this.rooms = res;
     });
   }
+  patchShelfValues() {
+    this.selectedRoom = this.shelf.room;
+    this.roomControl.patchValue(this.shelf.room);
+    this.letterControl.patchValue(this.shelf.letter);
+    this.numberControl.patchValue(this.shelf.number);
+  }
 
   buildShelfForm() {
     return this.formBuilder.group({
-      room: [this.selectedRoom, [Validators.required]],
-      letter: [this.shelf.letter, [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]],
-      number: [this.shelf.number, [Validators.required, Validators.minLength(1), Validators.maxLength(3), Validators.pattern('^[0-9]*$')]],
+      room: this.roomControl,
+      letter: this.letterControl,
+      number: this.numberControl,
     });
   }
 
@@ -62,5 +74,33 @@ export class ShelfDetailsComponent implements OnInit {
     this.shelvesService.deleteShelf(this.shelf.id).subscribe(() => {
       this.router.navigate(['/settings']);
     })
+  }
+  
+  resetToOriginal() {
+    this.ngOnInit();
+  }
+
+  getErrorMessageRoom() {
+    return (this.roomControl.hasError('required')) ? 'You must choose room' : '';
+  }
+
+  getErrorMessageLetter() {
+    if (this.letterControl.hasError('required')) {
+      return 'You must enter a title';
+    } else if (this.letterControl.hasError('minlength') || this.letterControl.hasError('maxlength')) {
+      return 'min 1 max 3 characters';
+    }
+
+    return (this.letterControl.hasError('pattern')) ?  'Characters only': '';
+  }
+
+  getErrorMessageNumber() {
+    if (this.numberControl.hasError('required')) {
+      return 'You must enter a title';
+    } else if (this.numberControl.hasError('minlength') || this.numberControl.hasError('maxlength')) {
+      return 'min 1 max 3 characters';
+    }
+
+    return (this.numberControl.hasError('pattern')) ?  'Numbers only': '';
   }
 }
