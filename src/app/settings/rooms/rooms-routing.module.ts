@@ -11,7 +11,7 @@ const ROOMS_ROUTES: Routes = [
     resolve: { room: RoomResolve }
   },
   {
-    path: 'newRoom',
+    path: 'addRoom',
     component: <any>RoomAddComponent
   }
 ];

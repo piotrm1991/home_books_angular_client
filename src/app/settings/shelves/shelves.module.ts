@@ -7,6 +7,13 @@ import { ShelvesListComponent } from './shelves-list/shelves-list.component';
 import { ShelfDetailsComponent } from './shelf-details/shelf-details.component';
 import { ShelfAddComponent } from './shelf-add/shelf-add.component';
 import { ShelvesResolve } from './shelves-resolve.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 
@@ -20,7 +27,14 @@ import { ShelvesResolve } from './shelves-resolve.service';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatTableModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule
   ],
   exports: [
     ShelvesListComponent,

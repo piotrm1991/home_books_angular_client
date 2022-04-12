@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 import { StatusTypesModule } from './status-types/status-types.module';
 import { ShelvesModule } from './shelves/shelves.module';
 
-
-
 @NgModule({
   declarations: [
     SettingsShowComponent

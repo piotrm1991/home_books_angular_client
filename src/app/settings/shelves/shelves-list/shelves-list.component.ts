@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Shelf } from 'src/app/models/shelf';
 import { ShelvesService } from '../shelves.service';
@@ -10,6 +13,12 @@ import { ShelvesService } from '../shelves.service';
 })
 export class ShelvesListComponent implements OnInit {
 
+  displayedColumns: string[] = ['name', 'letter', 'number', 'noBooks'];
+  dataSource!: MatTableDataSource<Shelf>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   shelves : Shelf[] = [];
 
   constructor(private shelveService : ShelvesService,
@@ -19,9 +28,23 @@ export class ShelvesListComponent implements OnInit {
     this.loadShelves();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   loadShelves() : void{
     this.shelveService.getShelves().subscribe((shelves : Shelf[]) => {
-      this.shelves = shelves;
+      this.dataSource = new MatTableDataSource(shelves);
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.room.name.toLowerCase().includes(filter);
+      };
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 

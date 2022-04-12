@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
 import { Book } from 'src/app/models/book';
 import { BooksService } from '../books.service';
 
+interface Filter {
+  filterFlag: number,
+  filterValue: string
+}
+
 @Component({
   selector: 'hb-books-list',
   templateUrl: './books-list.component.html',
@@ -42,7 +47,7 @@ export class BooksListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(books);
       this.dataSource.filterPredicate = function(data, filter: string): boolean {
         return data.name.toLowerCase().includes(filter);
-      };
+      }
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

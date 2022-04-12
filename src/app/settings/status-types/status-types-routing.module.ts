@@ -11,7 +11,7 @@ const STATUS_TYPES_ROUTES: Routes = [
     resolve: { statusType: StatusTypeResolve }
   },
   {
-    path: 'newStatusType',
+    path: 'addStatusType',
     component: <any>StatusTypeAddComponent
   }
 ];

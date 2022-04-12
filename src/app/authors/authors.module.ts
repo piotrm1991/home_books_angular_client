@@ -8,12 +8,12 @@ import { AuthorResolve } from './author-resolve.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthorAddComponent } from './author-add/author-add.component';
 import { MatTableModule } from '@angular/material/table';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 

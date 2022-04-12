@@ -5,4 +5,5 @@ export interface Shelf {
     letter: string;
     number: number;
     room: Room;
+    noBooks: number;
 }
